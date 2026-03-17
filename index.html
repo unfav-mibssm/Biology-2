@@ -40,13 +40,29 @@
             overflow-x: hidden;
         }
 
+        /* --- GLOBAL LINK RESET (KILLS BLUE BOX) --- */
+        a {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none;
+        }
+
+        /* --- THE RESTORED "CLICKED" VIBE --- */
+        .plus-two-link {
+            display: inline-block;
+            transition: transform 0.1s ease; /* Fast response for tapping */
+        }
+
+        .plus-two-link:active {
+            transform: scale(0.95); /* This is the "being clicked" thing! */
+        }
+
         .plus-two {
             font-family: 'PlusTwoFont', sans-serif;
             color: #7E7E62;
             font-size: 1.4rem;
             margin-bottom: 25px;
             display: inline-block;
-            text-decoration: none;
         }
 
         h1 {
@@ -68,7 +84,7 @@
             height: 2px;
             background-color: #92593B; 
             width: 60px;
-            margin: 20px auto; /* Tightened spacing */
+            margin: 20px auto;
         }
 
         /* --- SOCIAL ICONS --- */
@@ -88,7 +104,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -108,18 +123,14 @@
         .hub-btn {
             background-color: #7E7E62;
             color: #ffffff;
-            text-decoration: none;
             padding: 24px;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
-            position: relative;
-            overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(126, 126, 98, 0.2);
-            -webkit-tap-highlight-color: transparent;
         }
 
         .hub-btn:active {
@@ -148,7 +159,9 @@
 <body>
 
     <div class="reveal active">
-        <a href="http://www.instagram.com/unfav.mibssm" class="plus-two">PLUS TWO</a>
+        <a href="http://www.instagram.com/unfav.mibssm" class="plus-two-link">
+            <div class="plus-two">PLUS TWO</div>
+        </a>
         <h1>Biology</h1>
         <p class="tagline">Where multiplication and division mean the same thing. 🧬✖️</p>
     </div>
@@ -178,7 +191,6 @@
     </div>
 
     <script>
-        // Scroll Reveal Logic
         const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -190,7 +202,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // PWA Service Worker
         if ('service-worker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js');
